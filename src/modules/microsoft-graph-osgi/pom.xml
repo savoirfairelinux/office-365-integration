@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.savoirfairelinux.liferay.module</groupId>
+        <artifactId>o365-integration</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
+    </parent>
+
+    <artifactId>microsoft-graph-osgi</artifactId>
+    <packaging>bundle</packaging>
+    <name>microsoft-graph osgi wrap</name>
+    <version>1.4.0</version>
+
+    <dependencies>
+        <dependency>
+			<groupId>com.microsoft.graph</groupId>
+			<artifactId>microsoft-graph</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+    </dependencies>
+
+    <properties>
+        <export.packages>*;version=${project.version}</export.packages>
+        <import.packages>*</import.packages>
+        <private.packages>!*</private.packages>
+        <symbolic.name>${pom.groupId}.${pom.artifactId}</symbolic.name>
+        <embed-dep>*;scope=compile;type=!pom;inline=true</embed-dep>
+        <unpack-bundle>false</unpack-bundle>
+    </properties>
+    
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <instructions>
+                        <Bundle-Name>${artifactId}</Bundle-Name>
+                        <Bundle-SymbolicName>${symbolic.name}</Bundle-SymbolicName>
+                        <Bundle-Description>${pom.name}</Bundle-Description>
+                        <Import-Package>${import.packages}</Import-Package>
+                        <Private-Package>${private.packages}</Private-Package>
+                        <Embed-Dependency>${embed-dep}</Embed-Dependency>
+                        <_exportcontents>${export.packages}</_exportcontents>
+                    </instructions>
+                </configuration>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

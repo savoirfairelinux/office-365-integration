@@ -1,0 +1,23 @@
+**/.~lock.*
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Serveur
+src/bundles
+src/installers
+
