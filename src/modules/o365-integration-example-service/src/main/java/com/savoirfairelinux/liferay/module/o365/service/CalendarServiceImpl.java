@@ -49,10 +49,13 @@ public class CalendarServiceImpl extends BaseAuthenticatedServiceImpl implements
 	}
 	
 	@Override
-	public ZonedDateTime getNextEvent(O365Authentication authentication) {
+	public ZonedDateTime getNextEvent(O365Authentication authentication, ZoneId userTimeZoneId) {
 		List<Option> options = new LinkedList<>();
 		options.add(new QueryOption("startDateTime", LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)));
-		options.add(new QueryOption("endDateTime", LocalDate.now().atTime(LocalTime.MAX).format(DateTimeFormatter.ISO_DATE_TIME)));
+		
+		ZonedDateTime startOfNextDay = ZonedDateTime.now(userTimeZoneId).plusDays(1).toLocalDate().atStartOfDay(userTimeZoneId);
+		String startOfNextDayGMT = startOfNextDay.format(DateTimeFormatter.ISO_DATE_TIME.withZone(ZoneId.of("GMT")));
+		options.add(new QueryOption("endDateTime", startOfNextDayGMT));
 		IEventCollectionPage events = getGraphClient(authentication).me()
 				                   .calendar().calendarView()
 				                   .buildRequest(options)

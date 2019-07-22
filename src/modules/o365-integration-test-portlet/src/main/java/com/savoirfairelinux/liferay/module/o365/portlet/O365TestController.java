@@ -25,10 +25,7 @@ import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.HttpUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.util.*;
 import com.savoirfairelinux.liferay.module.o365.core.api.AuthenticationService;
 import com.savoirfairelinux.liferay.module.o365.api.CalendarService;
 import com.savoirfairelinux.liferay.module.o365.api.EmailService;
@@ -71,6 +68,9 @@ public class O365TestController extends MVCPortlet {
 	@Reference
 	private CalendarService calendarService;
 	
+	@Reference
+	Portal portalUtil;
+	
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
@@ -93,12 +93,17 @@ public class O365TestController extends MVCPortlet {
 			
 			ZonedDateTime nextEvent = null;
 			try {
-				nextEvent = calendarService.getNextEvent(authentication);
+				nextEvent = calendarService.getNextEvent(authentication, ZoneId.of(portalUtil.getUser(renderRequest).getTimeZoneId()));
 			} catch (Exception e) {
 				LOG.error("cannot retrieve events", e);
 			}
 			if(nextEvent!=null){
-				String nextEventTime = nextEvent.format(DateTimeFormatter.ISO_DATE_TIME.withZone(ZoneId.of("America/Montreal"))); // TODO use user timezone
+				String nextEventTime = null;
+				try {
+					nextEventTime = nextEvent.format(DateTimeFormatter.ISO_DATE_TIME.withZone(ZoneId.of(portalUtil.getUser(renderRequest).getTimeZoneId())));
+				} catch (PortalException e) {
+					LOG.error("cannot format events", e);
+				}
 				renderRequest.setAttribute("nextEventTime", nextEventTime);
 			} else {
 				renderRequest.setAttribute("nextEventTime", "free time today");

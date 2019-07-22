@@ -13,7 +13,7 @@
   ~
   ~ You should have received a copy of the GNU LesserGeneral Public License
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  -->
+  --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>

@@ -20,6 +20,7 @@ package com.savoirfairelinux.liferay.module.o365.api;
 import com.savoirfairelinux.liferay.module.o365.core.api.AuthenticatedService;
 import com.savoirfairelinux.liferay.module.o365.core.model.O365Authentication;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 /**
@@ -29,8 +30,21 @@ public interface CalendarService extends AuthenticatedService
 {
 	/**
 	 * Get the time of the next event until the end of the day. In progress events won’t be returned by this method.
+	 *
+	 * authentication the user authentication
+	 * userTimeZoneId the user time zone to determine the end of the day
 	 */
-	ZonedDateTime getNextEvent(O365Authentication authentication);
+	ZonedDateTime getNextEvent(O365Authentication authentication, ZoneId userTimeZoneId);
 	
+	/**
+	 * Create a new event int the user calendar
+	 *
+ 	 * @param authentication the user authentication
+	 * @param name the event name/title
+	 * @param description a description of the event
+	 * @param location the location/place of the event
+	 * @param startTime the start time of the event
+	 * @param endTime the end time of the event
+	 */
 	void createEvent(O365Authentication authentication, String name, String description, String location, ZonedDateTime startTime, ZonedDateTime endTime);
 }
