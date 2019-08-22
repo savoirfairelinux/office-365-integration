@@ -28,7 +28,7 @@ import com.savoirfairelinux.liferay.module.o365.core.model.O365Authentication;
  *
  * @see <a href="https://github.com/microsoftgraph/msgraph-sdk-java/blob/dev/README.md">Microsoft Graph SDK for Java</a>
  */
-final class ScribejavaAuthenticationProvider implements IAuthenticationProvider {
+ final class ScribejavaAuthenticationProvider implements IAuthenticationProvider {
 	private final O365Authentication authentication;
 	private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
 	private static final String OAUTH_BEARER_PREFIX = "bearer ";
@@ -45,4 +45,4 @@ final class ScribejavaAuthenticationProvider implements IAuthenticationProvider 
 		OAuth2AccessToken accessToken = (OAuth2AccessToken) authentication.getAccessToken();
 		request.addHeader(AUTHORIZATION_HEADER_NAME, OAUTH_BEARER_PREFIX + accessToken.getAccessToken());
 	}
-}
+ }

@@ -32,20 +32,20 @@ import javax.servlet.http.HttpServletResponse;
  * Post login hook that redirect users to the {@link Office365LoginFilter} after they
  * successfully login to Liferay
  */
-@Component(
-        immediate = true,
-        property = {"key=" + PropsKeys.LOGIN_EVENTS_POST},
-        service = LifecycleAction.class )
-public final class PostLoginAction extends Action
-{
+ @Component(
+    immediate = true,
+    property = {"key=" + PropsKeys.LOGIN_EVENTS_POST},
+    service = LifecycleAction.class )
+ public final class PostLoginAction extends Action
+ {
 	@Override
 	public void run(HttpServletRequest request, HttpServletResponse response) {
-        try{
+	    try{
 	        String redirect = ParamUtil.getString(request, "_com_liferay_login_web_portlet_LoginPortlet_redirect","/");
 	        String backUrl = HttpUtil.encodePath(redirect);
 	        response.sendRedirect("/o/o365/login?backURL="+backUrl);
 		}catch (Exception e){
-        	throw new RuntimeException("Error when redirecting user", e);
+	        throw new RuntimeException("Error when redirecting user", e);
 		}
 	}
-}
+ }
