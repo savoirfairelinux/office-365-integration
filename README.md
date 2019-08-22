@@ -39,3 +39,18 @@ More info is available to understand the office 365 authentication process: http
 # Configuration
 Your application must be registered in Azure AD before being able to connect to it (https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-openid-connect-code#register-your-application-with-your-ad-tenant)
 You will need to retrieve the application ID and secret of your application to configure it in liferay system settings.
+
+# How to build
+
+To build the whole project, the liferay version must be provided to maven to account for diffrent configuration required.
+Liferay 7.0:
+    mvn -Dliferay=70 clean package
+
+Liferay 7.1:
+    mvn -Dliferay=71 clean package
+
+Liferay 7.2:
+    mvn -Dliferay=72 clean package
+
+The required artifacts can be found in `modules/o365-package/target/o365-package-*.zip/`
+    

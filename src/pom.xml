@@ -41,7 +41,6 @@
 		<project.build.extension>jar</project.build.extension>
 		<osgi-service-component-annotations.version>1.3.0</osgi-service-component-annotations.version>
 		<project.build.finalName>${project.artifactId}</project.build.finalName>
-		<liferay.target.platform>7.0.6</liferay.target.platform>
 		<build.number>local-${user.name}</build.number>
 	</properties>
 
@@ -224,4 +223,40 @@
 		</pluginManagement>
 	</build>
 
+
+	<profiles>
+		<profile>
+			<id>liferay-70</id>
+			<activation>
+				<property>
+					<name>liferay</name>
+					<value>70</value>
+				</property>
+			</activation>
+			<properties>
+				<liferay.target.platform>7.0.6</liferay.target.platform>
+			</properties>
+		</profile>
+		<profile>
+			<id>liferay-71</id>
+			<activation>
+				<property>
+					<name>liferay</name>
+					<value>71</value>
+				</property>
+			</activation>
+			<properties>
+				<liferay.target.platform>7.1.0</liferay.target.platform>
+			</properties>
+		</profile>
+		<profile>
+			<id>liferay-72</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<liferay.target.platform>7.2.0</liferay.target.platform>
+			</properties>
+		</profile>
+	</profiles>
 </project>

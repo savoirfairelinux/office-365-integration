@@ -25,7 +25,7 @@
         <export.packages>*;version=${project.version}</export.packages>
         <import.packages>*</import.packages>
         <private.packages>!*</private.packages>
-        <symbolic.name>${pom.groupId}.${pom.artifactId}</symbolic.name>
+        <symbolic.name>${project.groupId}.${project.artifactId}</symbolic.name>
         <embed-dep>*;scope=compile;type=!pom;inline=true</embed-dep>
         <unpack-bundle>false</unpack-bundle>
     </properties>
@@ -39,9 +39,9 @@
                 <version>3.2.0</version>
                 <configuration>
                     <instructions>
-                        <Bundle-Name>${artifactId}</Bundle-Name>
+                        <Bundle-Name>${project.artifactId}</Bundle-Name>
                         <Bundle-SymbolicName>${symbolic.name}</Bundle-SymbolicName>
-                        <Bundle-Description>${pom.name}</Bundle-Description>
+                        <Bundle-Description>${project.name}</Bundle-Description>
                         <Import-Package>${import.packages}</Import-Package>
                         <Private-Package>${private.packages}</Private-Package>
                         <Embed-Dependency>${embed-dep}</Embed-Dependency>
