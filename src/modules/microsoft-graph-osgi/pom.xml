@@ -19,6 +19,12 @@
 			<artifactId>microsoft-graph</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <properties>

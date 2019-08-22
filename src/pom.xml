@@ -257,6 +257,15 @@
 			<properties>
 				<liferay.target.platform>7.2.0</liferay.target.platform>
 			</properties>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<artifactId>portlet-api</artifactId>
+						<groupId>javax.portlet</groupId>
+						<version>2.0</version>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
 		</profile>
 	</profiles>
 </project>
