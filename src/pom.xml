@@ -110,7 +110,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.build.finalName}</finalName>
+		<finalName>${project.artifactId}${bundle.sufix}</finalName>
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -143,6 +143,7 @@
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>${maven.jar.plugin.version}</version>
 					<configuration>
+						<finalName>${project.artifactId}${bundle.sufix}</finalName>
 						<archive>
 							<manifestEntries>
 								<Build-Number>${build.number}</Build-Number>
@@ -235,6 +236,7 @@
 			</activation>
 			<properties>
 				<liferay.target.platform>7.0.6</liferay.target.platform>
+				<bundle.sufix>-lf70</bundle.sufix>
 			</properties>
 		</profile>
 		<profile>
@@ -247,6 +249,7 @@
 			</activation>
 			<properties>
 				<liferay.target.platform>7.1.0</liferay.target.platform>
+				<bundle.sufix>-lf71</bundle.sufix>
 			</properties>
 		</profile>
 		<profile>
@@ -256,6 +259,7 @@
 			</activation>
 			<properties>
 				<liferay.target.platform>7.2.0</liferay.target.platform>
+				<bundle.sufix>-lf72</bundle.sufix>
 			</properties>
 			<dependencyManagement>
 				<dependencies>

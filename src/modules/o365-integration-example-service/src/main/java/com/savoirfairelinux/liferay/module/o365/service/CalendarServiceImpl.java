@@ -54,7 +54,7 @@ public class CalendarServiceImpl extends BaseAuthenticatedServiceImpl implements
 		options.add(new QueryOption("startDateTime", LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)));
 		
 		ZonedDateTime startOfNextDay = ZonedDateTime.now(userTimeZoneId).plusDays(1).toLocalDate().atStartOfDay(userTimeZoneId);
-		String startOfNextDayGMT = startOfNextDay.format(DateTimeFormatter.ISO_DATE_TIME.withZone(ZoneId.of("GMT")));
+		String startOfNextDayGMT = startOfNextDay.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.of("GMT")));
 		options.add(new QueryOption("endDateTime", startOfNextDayGMT));
 		IEventCollectionPage events = getGraphClient(authentication).me()
 				                   .calendar().calendarView()
