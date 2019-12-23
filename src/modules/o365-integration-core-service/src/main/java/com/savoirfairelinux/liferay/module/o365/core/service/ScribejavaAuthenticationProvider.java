@@ -35,7 +35,7 @@ final class ScribejavaAuthenticationProvider implements IAuthenticationProvider 
 
 	ScribejavaAuthenticationProvider(O365Authentication authentication) {
 		if(authentication == null || authentication.getAccessToken()==null){
-			throw new RuntimeException("User need to be logged in Office 365 before calling the API." );
+			throw new RuntimeException("User needs to be logged in Office 365 before calling the API." );
 		}
 		this.authentication = authentication;
 	}
