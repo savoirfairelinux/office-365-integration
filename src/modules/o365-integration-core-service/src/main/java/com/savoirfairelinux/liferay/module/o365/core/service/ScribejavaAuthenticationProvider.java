@@ -28,14 +28,14 @@ import com.savoirfairelinux.liferay.module.o365.core.model.O365Authentication;
  *
  * @see <a href="https://github.com/microsoftgraph/msgraph-sdk-java/blob/dev/README.md">Microsoft Graph SDK for Java</a>
  */
- final class ScribejavaAuthenticationProvider implements IAuthenticationProvider {
+final class ScribejavaAuthenticationProvider implements IAuthenticationProvider {
 	private final O365Authentication authentication;
 	private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
 	private static final String OAUTH_BEARER_PREFIX = "bearer ";
 
 	ScribejavaAuthenticationProvider(O365Authentication authentication) {
 		if(authentication == null || authentication.getAccessToken()==null){
-			throw new RuntimeException("User need to be logged in Office 365 before calling the API." );
+			throw new RuntimeException("User needs to be logged in Office 365 before calling the API." );
 		}
 		this.authentication = authentication;
 	}
@@ -45,4 +45,4 @@ import com.savoirfairelinux.liferay.module.o365.core.model.O365Authentication;
 		OAuth2AccessToken accessToken = (OAuth2AccessToken) authentication.getAccessToken();
 		request.addHeader(AUTHORIZATION_HEADER_NAME, OAUTH_BEARER_PREFIX + accessToken.getAccessToken());
 	}
- }
+}
