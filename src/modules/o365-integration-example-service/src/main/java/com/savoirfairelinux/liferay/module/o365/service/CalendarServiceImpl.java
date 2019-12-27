@@ -31,7 +31,9 @@ import com.savoirfairelinux.liferay.module.o365.core.model.O365Authentication;
 import com.savoirfairelinux.liferay.module.o365.core.service.BaseAuthenticatedServiceImpl;
 import org.osgi.service.component.annotations.Component;
 
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;

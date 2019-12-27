@@ -19,7 +19,7 @@
 
 <portlet:actionURL name="removeAuth" var="removeAuth"/>
 <portlet:actionURL name="removeSession" var="removeSession"/>
-<portlet:actionURL name="expirerSession" var="expirerSession"/>
+<portlet:actionURL name="expireSession" var="expireSession"/>
 <portlet:actionURL name="removeProperties" var="removeProperties"/>
 <portlet:actionURL name="createEvent" var="createEvent"/>
 <c:choose>
@@ -28,15 +28,19 @@
 		    unread mail: ${unreadMail}
 		    next event time: ${nextEventTime}
 		</pre>
-		<a href="${removeAuth}" class="btn btn-danger">Suprimmer Auth</a>
-		<a href="${removeSession}" class="btn btn-danger">Suprimer session</a>
-		<a href="${removeSession}" class="btn btn-warning">expirer session</a>
-		<a href="${removeProperties}" class="btn btn-danger">Suprimer propri&eacute;t&eacute;</a>
+		<a href="${removeAuth}" class="btn btn-danger">Delete Auth</a>
+		<a href="${removeSession}" class="btn btn-danger">Delete session</a>
+		<a href="${expireSession}" class="btn btn-warning">Expire session</a>
+		<a href="${removeProperties}" class="btn btn-danger">Delete properties</a>
 		<br/>
-		<a href="${createEvent}" class="btn btn-primary">creer &eacute;v&eacute;nement</a>
+		<a href="${createEvent}" class="btn btn-primary">Create event</a>
 
 	</c:when>
 	<c:otherwise>
-		<a href="/o/o365/login?backURL=${backURL}" class="btn btn-primary">Connection &agrave; Office365</a>
+		<a href="/o/o365/login?backURL=${backURL}" class="btn btn-primary">Connect to Office365</a>
 	</c:otherwise>
 </c:choose>
+
+<c:forEach var="user" items="${users}">
+    ${user} <br />
+</c:forEach>

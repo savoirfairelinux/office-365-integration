@@ -16,7 +16,7 @@
 			<binaries>
 				<unpack>false</unpack>
 				<includeDependencies>true</includeDependencies>
-				<outputFileNameMapping>${module.artifactId}${bundle.sufix}.${module.extension}</outputFileNameMapping>
+				<outputFileNameMapping>${module.artifactId}${bundle.suffix}.${module.extension}</outputFileNameMapping>
 				<excludes>
 					<exclude>*:*</exclude>
 				</excludes>

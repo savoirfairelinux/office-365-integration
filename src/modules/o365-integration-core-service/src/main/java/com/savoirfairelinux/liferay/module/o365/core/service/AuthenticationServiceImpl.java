@@ -36,13 +36,16 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.Instant;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Component(
 		configurationPid = O365Configuration.CONFIGURATION_PID,
-        service = {AuthenticationService.class, AuthenticatedService.class},
-        immediate = true
+		service = {AuthenticationService.class, AuthenticatedService.class},
+		immediate = true
 )
 public class AuthenticationServiceImpl extends BaseAuthenticatedServiceImpl implements AuthenticationService
 {
@@ -96,14 +99,15 @@ public class AuthenticationServiceImpl extends BaseAuthenticatedServiceImpl impl
 		return true;
 	}
 	
-	private void refreshAccessToken(O365Authentication authentication, String refreshToken) {
+	private void refreshAccessToken(O365Authentication authentication, String refreshToken) throws Exception {
 		
-		OAuth2AccessToken accessToken = null;
+		OAuth2AccessToken accessToken;
 		try (OAuth20Service authService = getAuthService(authentication)){
 			accessToken = authService.refreshAccessToken(refreshToken);
 			LOG.debug("refresh token");
 		} catch (IOException | InterruptedException | ExecutionException e) {
 			LOG.error("Cannot refresh token", e);
+			throw new Exception(e.getMessage());
 		}
 		
 		authentication.setAccessToken(accessToken);
@@ -125,16 +129,23 @@ public class AuthenticationServiceImpl extends BaseAuthenticatedServiceImpl impl
 		if(accessValid && !isScopeValid(accessToken, accessScope)){
 			return false;
 		}
-	    if(authentication.getAccessTokenExpireAt().isBefore(Instant.now())){
+		if(authentication.getAccessTokenExpireAt().isBefore(Instant.now())){
 			accessValid = false;
 		}
 		
-		if(!accessValid){
-			String refreshToken = authentication.getRefreshToken();
-			if(Validator.isNotNull(refreshToken)){
-				refreshAccessToken(authentication, refreshToken);
-				accessValid = authentication.getAccessToken()!=null;
+		try
+		{
+			if(!accessValid){
+				String refreshToken = authentication.getRefreshToken();
+				if(Validator.isNotNull(refreshToken)){
+					refreshAccessToken(authentication, refreshToken);
+					accessValid = authentication.getAccessToken()!=null;
+				}
 			}
+		}
+		catch(Exception e)
+		{
+			LOG.error("Cannot refresh token", e);
 		}
 		
 		return accessValid;

@@ -25,17 +25,27 @@ import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.*;
-import com.savoirfairelinux.liferay.module.o365.core.api.AuthenticationService;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HttpUtil;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.savoirfairelinux.liferay.module.o365.api.CalendarService;
 import com.savoirfairelinux.liferay.module.o365.api.EmailService;
+import com.savoirfairelinux.liferay.module.o365.api.UsersService;
+import com.savoirfairelinux.liferay.module.o365.core.api.AuthenticationService;
 import com.savoirfairelinux.liferay.module.o365.core.model.O365Authentication;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.portlet.*;
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -67,6 +77,8 @@ public class O365TestController extends MVCPortlet {
 	private EmailService emailService;
 	@Reference
 	private CalendarService calendarService;
+	@Reference
+	private UsersService usersService;
 	
 	@Reference
 	Portal portalUtil;
@@ -110,6 +122,8 @@ public class O365TestController extends MVCPortlet {
 			}
 		}
 		
+		renderRequest.setAttribute("users", usersService.getUsersList());
+		
 		super.doView(renderRequest, renderResponse);
 	}
 	
@@ -128,7 +142,7 @@ public class O365TestController extends MVCPortlet {
 		httpSession.setAttribute("O365_ACCESS_TOKENexpires_at",null);
 	}
 	
-	public void expirerSession(ActionRequest actionRequest, ActionResponse actionResponse) {
+	public void expireSession(ActionRequest actionRequest, ActionResponse actionResponse) {
 		PortalPreferences userPreference;
 		HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(actionRequest);
 		HttpServletRequest originalServletRequest = PortalUtil.getOriginalServletRequest(httpServletRequest);

@@ -17,9 +17,8 @@
 
 package com.savoirfairelinux.liferay.module.o365.core.service.config;
 
-import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
-
 import aQute.bnd.annotation.metatype.Meta;
+import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
 @ExtendedObjectClassDefinition(
         scope = ExtendedObjectClassDefinition.Scope.SYSTEM,

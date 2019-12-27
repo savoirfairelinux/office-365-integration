@@ -42,7 +42,7 @@ You will need to retrieve the application ID and secret of your application to c
 
 # How to build
 
-To build the whole project, the liferay version must be provided to maven to account for diffrent configuration required.
+To build the whole project, the liferay version must be provided to maven to account for different configuration required.
 Liferay 7.0:
     mvn -Dliferay=70 clean package
 
