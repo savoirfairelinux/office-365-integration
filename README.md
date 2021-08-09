@@ -52,5 +52,8 @@ Liferay 7.1:
 Liferay 7.2:
     mvn -Dliferay=72 clean package
 
+Liferay 7.3:
+    mvn -Dliferay=73 clean package
+
 The required artifacts can be found in `modules/o365-package/target/o365-package-*.zip/`
     
